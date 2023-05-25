@@ -17,16 +17,14 @@ while len(correct_answers) < 50:
     # show text box that shows the score
     answer_state = screen.textinput(title=f"{score}/50 States Correct", prompt="What's another state's name?").title()
     # if the user enters 'Exit' game will close and the states they didn't answer are stored in states to learn
+
     if answer_state == "Exit":
-        states_not_guessed_correct = []
-        for i in states_list:
-            if i not in correct_answers:
-                states_not_guessed_correct.append(i)
+        states_not_guessed_correct = [state for state in states_list if state not in correct_answers]
         data = pandas.DataFrame(states_not_guessed_correct)
         data.to_csv("States_to_learn.csv")
         break
-    for possibleAnswers in states_list:
 
+    for possibleAnswers in states_list:
         # compare what the user entered is in 50_states.csv
         if answer_state == possibleAnswers and answer_state not in correct_answers:
             score += 1
